@@ -19,8 +19,8 @@
         "cells": [
           {
             "position": {
-              "x": -160,
-              "y": -270
+              "x": -170,
+              "y": -200
             },
             "size": {
               "width": 1240,
@@ -33,8 +33,8 @@
             },
             "visible": true,
             "shape": "trust-boundary-box",
-            "id": "e4d358b8-8c34-40b9-bc66-a640f4d8c3ab",
             "zIndex": -1,
+            "id": "e4d358b8-8c34-40b9-bc66-a640f4d8c3ab",
             "data": {
               "type": "tm.BoundaryBox",
               "name": "AWS VPC",
@@ -57,13 +57,14 @@
                 "text": "NGINX Load Balancer"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 0,
             "ports": {
               "groups": {
                 "top": {
@@ -147,19 +148,37 @@
               ]
             },
             "id": "dc5dcaac-f189-4ab1-b6d2-ba977dc68f62",
-            "zIndex": 0,
             "data": {
               "type": "tm.Process",
               "name": "NGINX Load Balancer",
               "description": "Front end proxy",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "402d999c-82e6-48dc-b184-190c9bce8fc8",
+                  "title": "Data Theft",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Confidentiality",
+                  "description": "Unauthorised access",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 5,
+                  "score": "2"
+                }
+              ],
+              "threatFrequency": {
+                "confidentiality": 2,
+                "integrity": 0,
+                "availability": 0
+              }
             }
           },
           {
@@ -176,13 +195,14 @@
                 "text": "Web Front End"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -266,19 +286,37 @@
               ]
             },
             "id": "772306da-ecde-429b-ab15-0accae5a94d4",
-            "zIndex": 1,
             "data": {
               "type": "tm.Process",
               "name": "Web Front End",
               "description": "Python HTTPS server",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": true,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "c53b25e9-eaa8-43e5-8051-33e4704f8798",
+                  "title": "New CIA threat",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Integrity",
+                  "description": "SQL Injection",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 4,
+                  "score": "4"
+                }
+              ],
+              "threatFrequency": {
+                "confidentiality": 0,
+                "integrity": 1,
+                "availability": 0
+              }
             }
           },
           {
@@ -307,6 +345,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 2,
             "ports": {
               "groups": {
                 "top": {
@@ -390,7 +429,6 @@
               ]
             },
             "id": "eab3abbc-b02e-4b77-ab2a-6b56c90be7a0",
-            "zIndex": 2,
             "data": {
               "type": "tm.Store",
               "name": "Database",
@@ -592,6 +630,94 @@
             ]
           },
           {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Uploads",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Uploads"
+            ],
+            "id": "a0144771-447d-43ef-a191-3f870644c725",
+            "source": {
+              "cell": "24287544-4256-4be5-af69-fcab77503eb6",
+              "port": "1b7e1256-4ff9-47c8-b127-cc7e9a535157"
+            },
+            "target": {
+              "cell": "772306da-ecde-429b-ab15-0accae5a94d4",
+              "port": "e774cc4a-9514-403f-ba0f-4160f9764971"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "API connection",
+              "description": "Used to pull info out of the uploads",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "TCP/443",
+              "threats": []
+            },
+            "labels": [
+              "API connection"
+            ],
+            "id": "248e5d90-a75b-4f35-ac37-ed0838475596",
+            "source": {
+              "cell": "4bb031b2-e5a1-43db-b620-fe23ca9c8f52",
+              "port": "c194b97b-59e2-4dbb-b945-4598a95039bd"
+            },
+            "target": {
+              "cell": "dc5dcaac-f189-4ab1-b6d2-ba977dc68f62",
+              "port": "e774cc4a-9514-403f-ba0f-4160f9764971"
+            }
+          },
+          {
             "position": {
               "x": 1310,
               "y": 50
@@ -609,6 +735,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 12,
             "ports": {
               "groups": {
                 "top": {
@@ -692,7 +819,6 @@
               ]
             },
             "id": "fd8291e4-855f-4e98-887c-e693b8df9e40",
-            "zIndex": 12,
             "data": {
               "type": "tm.Actor",
               "name": "Actor",
@@ -703,12 +829,273 @@
               "providesAuthentication": false,
               "threats": []
             }
+          },
+          {
+            "position": {
+              "x": -160,
+              "y": -185
+            },
+            "size": {
+              "width": 90,
+              "height": 90
+            },
+            "attrs": {
+              "text": {
+                "text": "API Gateway"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "a50a47d2-60ed-4dc8-989e-f763f6b47449"
+                },
+                {
+                  "group": "right",
+                  "id": "c194b97b-59e2-4dbb-b945-4598a95039bd"
+                },
+                {
+                  "group": "bottom",
+                  "id": "1976fe24-977c-472c-aeeb-31c099b1a689"
+                },
+                {
+                  "group": "left",
+                  "id": "f05c6dac-46f1-4d6b-ac62-ff20e9b566c8"
+                }
+              ]
+            },
+            "id": "4bb031b2-e5a1-43db-b620-fe23ca9c8f52",
+            "zIndex": 13,
+            "data": {
+              "type": "tm.Process",
+              "name": "API Gateway",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "93f9e97e-910c-4a1a-8cf8-c8a2ddd9fcbb",
+                  "title": "DoS",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Availability",
+                  "description": "Connections to API suceptable to DoS",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 6,
+                  "score": "2"
+                }
+              ],
+              "threatFrequency": {
+                "confidentiality": 0,
+                "integrity": 0,
+                "availability": 1
+              }
+            }
+          },
+          {
+            "position": {
+              "x": -4,
+              "y": 55
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "S3 Storage"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "3fe3d7b9-07b8-425c-98f3-54484c1f8a44"
+                },
+                {
+                  "group": "right",
+                  "id": "1b7e1256-4ff9-47c8-b127-cc7e9a535157"
+                },
+                {
+                  "group": "bottom",
+                  "id": "daf3bd85-6726-4cb3-9d05-153f80eb571f"
+                },
+                {
+                  "group": "left",
+                  "id": "91f5b2fe-ecc2-4de1-864c-3b36c96d140f"
+                }
+              ]
+            },
+            "id": "24287544-4256-4be5-af69-fcab77503eb6",
+            "zIndex": 14,
+            "data": {
+              "type": "tm.Store",
+              "name": "S3 Storage",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": []
+            }
           }
         ]
       }
     ],
     "diagramTop": 1,
     "reviewer": "Adam",
-    "threatTop": 3
+    "threatTop": 6
   }
 }
